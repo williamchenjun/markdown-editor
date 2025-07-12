@@ -6,6 +6,13 @@ Simple markdown text editor that you can implement into your own React project. 
 <img src="./assets/images/screenshot.png" width=300>
 </div>
 
+## Installation
+You can easily install this as a node module via `npm`:
+
+```sh
+npm install git+https://www.github.com/williamchenjun/markdown-editor.git
+```
+
 ## Available styles 🎀
 The editor offers the following baseline styles (for now):
 - `_italics_`
