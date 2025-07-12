@@ -83,7 +83,7 @@ export default function Textfield ({width, height, className, id = "txtarea", sh
             
         }
         const parseInline = line => {
-            const regex = /```([^`]+)```|`([^`]+)`|\[fg:([#\w]+|\brgba?\([^)]+\))\](.*?)\[\/fg\]|(\[([^\]]+)\]\(([^\)]+)\))|(\*\*|_{1,2}|[^`\[\]\(\)\*_]+)/g;
+            const regex = /```([^`]+)```|`([^`]+)`|\[fg:([#\w]+|\brgba?\([^)]+\))\](.*?)\[\/fg\]|(\[([^\]]+)\]\(([^\)]+)\))|(\*\*|_{1,2}|[^`\[\]\*_]+|\(|\))/g;
             const inline = Array.from(line.matchAll(regex)).map(match => {
                 const [_, blockCode, inlineCode, textFgCol, coloredText, link, linkDisplay, linkUrl, text] = match
                 if (link && linkUrl) {
