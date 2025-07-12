@@ -30,18 +30,18 @@ export default function Textfield ({width, height, className, id = "txtarea", sh
             const preview = document.querySelector(".preview");
             const draft = localStorage.getItem("draft");
 
-            textarea.addEventListener("paste", function(e) {
-                e.preventDefault();
-                const text = e.clipboardData?.getData("text/plain").replace(/\r/g, "");
+            // textarea.addEventListener("paste", function(e) {
+            //     e.preventDefault();
+            //     const text = e.clipboardData?.getData("text/plain").replace(/\r/g, "");
 
-                const selection = window.getSelection();
-                if (!selection || !selection.rangeCount) return;
+            //     const selection = window.getSelection();
+            //     if (!selection || !selection.rangeCount) return;
 
-                const range = selection.getRangeAt(0);
-                range.deleteContents();
-                range.insertNode(document.createTextNode(text));
-                range.collapse(false);
-            });
+            //     const range = selection.getRangeAt(0);
+            //     range.deleteContents();
+            //     range.insertNode(document.createTextNode(text));
+            //     range.collapse(false);
+            // });
 
             textarea.addEventListener("keydown", function(e) {
                 if (e.key == 'Tab') {
@@ -313,7 +313,7 @@ export default function Textfield ({width, height, className, id = "txtarea", sh
     return (
         <Container valign={true}>
             <span id="audit-data"></span>
-            <div id={id} className={className} style={textareaTagStyle} contentEditable>
+            <div id={id} className={className} style={textareaTagStyle} contentEditable="plaintext-only">
 
             </div>
             {showPreview && (
