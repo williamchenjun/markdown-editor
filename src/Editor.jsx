@@ -1,7 +1,7 @@
 import { useEffect } from "react"
 import Container from "./Container"
 
-export default function Textfield ({width, height, className, id = "txtarea", showPreview = true}) {
+export default function Textfield ({width, height, className, id = "txtarea", showPreview = true, onContentChange}) {
     const textareaTagStyle = {
         width: width || "500px",
         height: height || "300px",
@@ -49,6 +49,7 @@ export default function Textfield ({width, height, className, id = "txtarea", sh
                 const parsedText = parseText(value);
                 const tree = populateTree(parsedText);
                 const html = formatText(tree);
+                if (onContentChange && typeof onContentChange === "function") onContentChange(html);
                 if (showPreview) preview.innerHTML = html;
 
                 const valueHTML = textarea.innerHTML;
