@@ -1,8 +1,5 @@
-import { useEffect, useRef, useState } from "react"
-import Button from "./Button"
+import { useEffect } from "react"
 import Container from "./Container"
-
-
 
 export default function Textfield ({width, height, className, id = "txtarea", showPreview = true}) {
     const textareaTagStyle = {
