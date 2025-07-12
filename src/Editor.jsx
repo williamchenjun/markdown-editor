@@ -30,6 +30,19 @@ export default function Textfield ({width, height, className, id = "txtarea", sh
             const preview = document.querySelector(".preview");
             const draft = localStorage.getItem("draft");
 
+            textarea.addEventListener("paste", function(e) {
+                e.preventDefault();
+                const text = (e.clipboardData || window.clipboardData).getData("text/plain");
+
+                const selection = window.getSelection();
+                if (!selection || !selection.rangeCount) return;
+
+                const range = selection.getRangeAt(0);
+                range.deleteContents();
+                range.insertNode(document.createTextNode(text));
+                range.collapse(false);
+            });
+
             textarea.addEventListener("keydown", function(e) {
                 if (e.key == 'Tab') {
                     e.preventDefault();
