@@ -22,3 +22,4 @@ The component accepts the following properties:
 - `height` (optional - defaults to 300px): The height of the editor.
 - `id` (optional): A unique identifier for the editor.
 - `showPreview` (optional - defaults to true): Whether to show a preview of the formatted data.
+- `onContentChange` (optional): Use a callback function so that the formatted output is passed.
