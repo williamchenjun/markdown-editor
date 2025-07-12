@@ -6,7 +6,7 @@ Simple markdown text editor that you can implement into your own React project. 
 The editor offers the following baseline styles (for now):
 - `_italics_`
 - `**bold**`
-- `__strikethrough__`
+- `__underlined__`
 - \`inline code\`
 - \`\`\`code block\`\`\`
 - `[<link>](<url>)`
