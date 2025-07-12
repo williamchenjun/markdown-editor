@@ -6,7 +6,7 @@ Simple markdown text editor that you can implement into your own React project. 
 The editor offers the following baseline styles (for now):
 - `_italics_`
 - `**bold**`
-- `__strikethrough__`
+- `__underlined__`
 - \`inline code\`
 - \`\`\`code block\`\`\`
 - `[<link>](<url>)`
@@ -22,3 +22,4 @@ The component accepts the following properties:
 - `height` (optional - defaults to 300px): The height of the editor.
 - `id` (optional): A unique identifier for the editor.
 - `showPreview` (optional - defaults to true): Whether to show a preview of the formatted data.
+- `onContentChange` (optional): Use a callback function so that the formatted output is passed.
