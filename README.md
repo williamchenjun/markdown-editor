@@ -2,6 +2,8 @@
 
 Simple markdown text editor that you can implement into your own React project. Easy to use and integrate.
 
+![Example](./assets/images/screenshot.png)
+
 ## Available styles 🎀
 The editor offers the following baseline styles (for now):
 - `_italics_`
