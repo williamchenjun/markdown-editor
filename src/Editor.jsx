@@ -32,7 +32,7 @@ export default function Textfield ({width, height, className, id = "txtarea", sh
 
             textarea.addEventListener("paste", function(e) {
                 e.preventDefault();
-                const text = (e.clipboardData || window.clipboardData).getData("text/plain");
+                const text = e.clipboardData?.getData("text/plain").replace(/\r/g, "");
 
                 const selection = window.getSelection();
                 if (!selection || !selection.rangeCount) return;
