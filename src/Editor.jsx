@@ -1,7 +1,7 @@
 import { useEffect } from "react"
 import Container from "./Container"
 
-export default function Textfield ({width, height, className, id = "txtarea", showPreview = true, onContentChange, ref, saveDraft}) {
+export default function Textfield ({width, height, className, editorId = "txtarea", previewId = "preview", showPreview = true, onContentChange, ref, saveDraft, useIdAsRef}) {
     const textareaTagStyle = {
         width: width || "500px",
         height: height || "300px",
@@ -26,8 +26,8 @@ export default function Textfield ({width, height, className, id = "txtarea", sh
 
     useEffect(() => {
         const init = () => {
-            const textarea = document.querySelector(`.${className}`);
-            const preview = document.querySelector(".preview");
+            const textarea = document.querySelector( useIdAsRef ? `#${editorId}` : `.${className}`);
+            const preview = document.querySelector( useIdAsRef ? `#${previewId}` : ".preview");
             const draft = localStorage.getItem("draft");
 
             // textarea.addEventListener("paste", function(e) {
@@ -317,13 +317,13 @@ export default function Textfield ({width, height, className, id = "txtarea", sh
     return (
         <Container valign={true}>
             <span id="audit-data"></span>
-            <div id={id} className={className} style={textareaTagStyle} contentEditable="plaintext-only" ref={ref}>
+            <div id={editorId} className={className} style={textareaTagStyle} contentEditable="plaintext-only" ref={ref}>
 
             </div>
             {showPreview && (
                 <>
                     <h3>Preview</h3>
-                    <div className="preview" style={previewTagStyle}></div>
+                    <div id={previewId} className="preview" style={previewTagStyle}></div>
                 </>
             )}
         </Container>
