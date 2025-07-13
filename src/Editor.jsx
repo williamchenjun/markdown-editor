@@ -1,7 +1,7 @@
 import { useEffect } from "react"
 import Container from "./Container"
 
-export default function Textfield ({width, height, className, id = "txtarea", showPreview = true, onContentChange}) {
+export default function Textfield ({width, height, className, id = "txtarea", showPreview = true, onContentChange, ref}) {
     const textareaTagStyle = {
         width: width || "500px",
         height: height || "300px",
@@ -313,7 +313,7 @@ export default function Textfield ({width, height, className, id = "txtarea", sh
     return (
         <Container valign={true}>
             <span id="audit-data"></span>
-            <div id={id} className={className} style={textareaTagStyle} contentEditable="plaintext-only">
+            <div id={id} className={className} style={textareaTagStyle} contentEditable="plaintext-only" ref={ref}>
 
             </div>
             {showPreview && (
