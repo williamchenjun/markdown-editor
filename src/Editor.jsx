@@ -1,7 +1,7 @@
 import { useEffect } from "react"
 import Container from "./Container"
 
-export default function Textfield ({width, height, className, id = "txtarea", showPreview = true, onContentChange, ref}) {
+export default function Textfield ({width, height, className, id = "txtarea", showPreview = true, onContentChange, ref, saveDraft}) {
     const textareaTagStyle = {
         width: width || "500px",
         height: height || "300px",
@@ -44,16 +44,15 @@ export default function Textfield ({width, height, className, id = "txtarea", sh
             // });
 
             textarea.addEventListener("keydown", function(e) {
-                if (e.key == 'Tab') {
-                    e.preventDefault();
+                // if (e.key == 'Tab') {
+                //     e.preventDefault();
 
-                    const selection = window.getSelection();
-                    if (!selection.rangeCount) return;
+                //     const selection = window.getSelection();
+                //     if (!selection.rangeCount) return;
 
-                    const range = selection.getRangeAt(0);
-                    const selectedParagraph = range.startContainer.parentElement.closest("p");
-                    console.log(selectedParagraph)
-                }
+                //     const range = selection.getRangeAt(0);
+                //     const selectedParagraph = range.startContainer.parentElement.closest("p");
+                // }
             })
 
             let timeout;
@@ -67,31 +66,36 @@ export default function Textfield ({width, height, className, id = "txtarea", sh
 
                 const valueHTML = textarea.innerHTML;
 
-                if (timeout) clearTimeout(timeout);
+                if (saveDraft) {
+                    if (timeout) clearTimeout(timeout);
 
-                timeout = setTimeout(() => {
-                    localStorage.setItem("draft", valueHTML);
-                    const now = new Date()
-                    const formatted = `${String(now.getDate()).padStart(2, '0')}/` +
-                    `${String(now.getMonth() + 1).padStart(2, '0')}/` +
-                    `${now.getFullYear()} ` +
-                    `${String(now.getHours()).padStart(2, '0')}:` +
-                    `${String(now.getMinutes()).padStart(2, '0')}:` +
-                    `${String(now.getSeconds()).padStart(2, '0')}`;
-                    document.getElementById("audit-data").innerHTML = `<span style="color: green;font-size: 11px;"><em>Draft saved at ${formatted}!</em></span>`
-                    console.log(`Draft saved - ${formatted}`);
-                }, 3000);
+                    timeout = setTimeout(() => {
+                        localStorage.setItem("draft", valueHTML);
+                        const now = new Date()
+                        const formatted = `${String(now.getDate()).padStart(2, '0')}/` +
+                        `${String(now.getMonth() + 1).padStart(2, '0')}/` +
+                        `${now.getFullYear()} ` +
+                        `${String(now.getHours()).padStart(2, '0')}:` +
+                        `${String(now.getMinutes()).padStart(2, '0')}:` +
+                        `${String(now.getSeconds()).padStart(2, '0')}`;
+                        document.getElementById("audit-data").innerHTML = `<span style="color: green;font-size: 11px;"><em>Draft saved at ${formatted}!</em></span>`
+                        console.log(`Draft saved - ${formatted}`);
+                    }, 3000);
+
+                    if (draft){
+                        textarea.innerHTML = draft;
+                        const event = new KeyboardEvent("keyup", {
+                            key: "ArrowRight",
+                            bubbles: true,
+                            cancelable: true
+                        });
+                        textarea.dispatchEvent(event);
+                    }
+                }
+                
             });
 
-            if (draft){
-                textarea.innerHTML = draft;
-                const event = new KeyboardEvent("keyup", {
-                    key: "ArrowRight",
-                    bubbles: true,
-                    cancelable: true
-                });
-                textarea.dispatchEvent(event);
-            }
+            
 
             
         }
