@@ -1,7 +1,37 @@
-import { useEffect } from "react"
+import { useEffect, useState } from "react"
 import Container from "./Container"
 
-export default function Textfield ({width, height, className, editorId = "txtarea", previewId = "preview", showPreview = true, onContentChange, ref, saveDraft, useIdAsRef}) {
+/**
+ * @param {Object} param0 
+ * @param {string} param0.width 
+ * @param {string} param0.height 
+ * @param {string} param0.className 
+ * @param {string} [param0.editorId="txtarea"] 
+ * @param {string} [param0.previewId="preview"] 
+ * @param {boolean} [param0.showPreview=true] 
+ * @param {(html: string, md: string) => {}} param0.onContentChange 
+ * @param {import("react").Ref} param0.ref 
+ * @param {boolean} param0.saveDraft 
+ * @param {boolean} param0.useIdAsRef 
+ * @param {Object} param0.textareaStyle 
+ * @param {Object} param0.previewStyle 
+ */
+export default function Textfield ({
+        width, 
+        height, 
+        className, 
+        editorId = "txtarea", 
+        previewId = "preview", 
+        editorValue,
+        showPreview = true, 
+        onContentChange,
+        ref,
+        saveDraft,
+        useIdAsRef,
+        textareaStyle,
+        previewStyle
+    }) {
+
     const textareaTagStyle = {
         width: width || "500px",
         height: height || "300px",
@@ -11,7 +41,8 @@ export default function Textfield ({width, height, className, editorId = "txtare
         overflow: "auto",
         padding: "10px",
         fontFamily: "monospace",
-        borderRadius: "3px"
+        borderRadius: "3px",
+        ...textareaStyle
     };
 
     const previewTagStyle = {
@@ -21,7 +52,8 @@ export default function Textfield ({width, height, className, editorId = "txtare
         outline: "none",
         border: "1px solid lightgray",
         overflow: "auto",
-        padding: "10px"
+        padding: "10px",
+        ...previewStyle
     };
 
     useEffect(() => {
@@ -57,11 +89,11 @@ export default function Textfield ({width, height, className, editorId = "txtare
 
             let timeout;
             textarea.addEventListener("keyup", () => {
-                const value = textarea.innerText;
+                const value = editorValue || textarea.innerText;
                 const parsedText = parseText(value);
                 const tree = populateTree(parsedText);
                 const html = formatText(tree);
-                if (onContentChange && typeof onContentChange === "function") onContentChange(html);
+                if (onContentChange && typeof onContentChange === "function") onContentChange(html, value);
                 if (showPreview) preview.innerHTML = html;
 
                 const valueHTML = textarea.innerHTML;
