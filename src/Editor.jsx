@@ -62,6 +62,17 @@ export default function Textfield ({
             const preview = document.querySelector( useIdAsRef ? `#${previewId}` : ".preview");
             const draft = localStorage.getItem("draft");
 
+            if (editorValue) {
+                textarea.innerText = editorValue;
+
+                const parsedText = parseText(editorValue);
+                const tree = populateTree(parsedText);
+                const html = formatText(tree);
+                
+                if (onContentChange && typeof onContentChange === "function") onContentChange(html, editorValue);
+                if (showPreview) preview.innerHTML = html;
+            }
+
             // textarea.addEventListener("paste", function(e) {
             //     e.preventDefault();
             //     const text = e.clipboardData?.getData("text/plain").replace(/\r/g, "");
@@ -89,7 +100,7 @@ export default function Textfield ({
 
             let timeout;
             textarea.addEventListener("keyup", () => {
-                const value = editorValue || textarea.innerText;
+                const value = textarea.innerText;
                 const parsedText = parseText(value);
                 const tree = populateTree(parsedText);
                 const html = formatText(tree);
@@ -343,7 +354,7 @@ export default function Textfield ({
                 if (node.type === 'ul') return `<ul>${node.items.map(li => `<li>${formatText(li.children)}</li>`).join('')}</ul>`;
             }).join('')
         init();
-    }, [showPreview]);
+    }, [showPreview, editorValue]);
     
 
     return (
