@@ -151,7 +151,7 @@ export default function Textfield ({
                         return {
                             type: "image",
                             alt: linkDisplay.split(":").at(1),
-                            src: linkUrl.startsWith("#") ? `http://api.theflyonthewall.net/uploads/${linkUrl.slice(1)}` : linkUrl,
+                            src: linkUrl.startsWith("#") ? `https://api.theflyonthewall.net/uploads/${linkUrl.slice(1)}` : linkUrl,
                             width: linkDisplay.split(":").at(0).split("-").at(-1)
                         }
                     }
